@@ -1,0 +1,21 @@
+{
+  "name": "librarian-backend",
+  "version": "1.0.0",
+  "description": "API REST de Librarian (Express 5 + express-rate-limit): libros, préstamos, ventas, usuarios e inventario.",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "keywords": ["express", "express-rate-limit", "cors", "api", "biblioteca"],
+  "author": "Allison Vargas",
+  "license": "ISC",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.0"
+  }
+}

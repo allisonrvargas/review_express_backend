@@ -322,3 +322,19 @@ El repositorio incluye `render.yaml`. En [Render](https://render.com): **New →
 - `CORS_ORIGIN` ya apunta al frontend publicado en GitHub Pages (`https://allisonrvargas.github.io`).
 - `TRUST_PROXY=1` hace que el límite de peticiones identifique bien a cada cliente detrás del proxy de Render.
 - Los datos viven en memoria: se reinician cuando el servicio se duerme o se vuelve a desplegar. El plan gratuito tarda unos segundos en despertar tras un rato sin uso.
+## Despliegue en Vercel
+
+El repositorio incluye `api/index.js` y `vercel.json`: Vercel ejecuta la app de Express como función serverless. En [Vercel](https://vercel.com): **Add New → Project**, importa este repositorio y define estas variables de entorno:
+
+| Variable | Valor |
+| --- | --- |
+| `SESSION_SECRET` | una cadena larga y aleatoria (firma los tokens de sesión) |
+| `CORS_ORIGIN` | `https://allisonrvargas.github.io` |
+| `TRUST_PROXY` | `1` |
+| `NODE_ENV` | `production` |
+
+Cómo se adaptó a serverless:
+
+- **Sesiones sin estado:** el token Bearer va firmado (HMAC-SHA256) y lleva el usuario y su expiración, así que cualquier instancia puede validarlo. Un token manipulado se rechaza.
+- **Datos en memoria:** cada instancia arranca con los datos de ejemplo. Los cambios (préstamos, ventas, usuarios nuevos) viven solo en la instancia que los recibió y se pierden cuando Vercel la apaga. Es un demo, no una base de datos real.
+- **Cerrar sesión:** revoca el token en la instancia actual; el token también caduca solo a los 120 minutos.

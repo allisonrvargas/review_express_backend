@@ -27,13 +27,13 @@ test("demasiados intentos fallidos de login responden 429 con el tiempo de esper
 });
 
 test("el límite de escritura cuenta por usuario y frena al pasarse", async () => {
-    // La prueba anterior dejó bloqueado el login para esta IP, así que la sesión se crea directo en memoria.
-    const { db } = await import("../src/store/db.js");
-    db.sesiones.set("token-prueba", { usuarioId: 1, expira: Date.now() + 60_000 });
+    // La prueba anterior dejó bloqueado el login para esta IP, así que la sesión se firma directo.
+    const { generarToken } = await import("../src/utils/seguridad.js");
+    const token = generarToken(1, Date.now() + 60_000);
 
     let ultima;
     for (let i = 0; i <= config.limites.escritura; i++) {
-        ultima = await api.pedir("PATCH", "/libros/1", { token: "token-prueba", cuerpo: { precio: 100 + i } });
+        ultima = await api.pedir("PATCH", "/libros/1", { token, cuerpo: { precio: 100 + i } });
     }
     assert.equal(ultima.status, 429);
     assert.match(ultima.json.motivo, /cambios por minuto/);

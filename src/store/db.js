@@ -9,7 +9,7 @@ export const db = {
     libros: new Coleccion("libros"),
     prestamos: new Coleccion("prestamos"),
     ventas: new Coleccion("ventas"),
-    sesiones: new Map() // token -> { usuarioId, expira }
+    sesiones: new Map() // tokens revocados (cerrar sesión)
 };
 
 export function reiniciarDB() {

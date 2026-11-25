@@ -314,3 +314,11 @@ Todas son opcionales. Copia `.env.example` como `.env`; la API lo carga sola al 
 ---
 
 Hecho por **Allison Vargas** · Frontend en 👉 [review_express_frontend](https://github.com/allisonrvargas/review_express_frontend)
+
+## Despliegue en Render
+
+El repositorio incluye `render.yaml`. En [Render](https://render.com): **New → Blueprint**, elige este repositorio y confirma. Queda en `https://librarian-backend.onrender.com` (si el nombre está libre).
+
+- `CORS_ORIGIN` ya apunta al frontend publicado en GitHub Pages (`https://allisonrvargas.github.io`).
+- `TRUST_PROXY=1` hace que el límite de peticiones identifique bien a cada cliente detrás del proxy de Render.
+- Los datos viven en memoria: se reinician cuando el servicio se duerme o se vuelve a desplegar. El plan gratuito tarda unos segundos en despertar tras un rato sin uso.

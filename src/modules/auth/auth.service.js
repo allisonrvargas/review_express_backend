@@ -5,9 +5,8 @@ import { noAutenticado } from "../../utils/errores.js";
 import * as usuarios from "../usuarios/usuarios.service.js";
 
 function abrirSesion(usuario) {
-    const token = generarToken();
     const expira = Date.now() + config.sesionMinutos * 60_000;
-    db.sesiones.set(token, { usuarioId: usuario.id, expira });
+    const token = generarToken(usuario.id, expira);
     return { token, expira: new Date(expira).toISOString(), usuario: usuarios.publico(usuario) };
 }
 
@@ -27,5 +26,6 @@ export function iniciarSesion({ email, clave }) {
 }
 
 export function cerrarSesion(token) {
-    db.sesiones.delete(token);
+    // Los tokens firmados no se guardan; se anotan como revocados hasta que expiren (por instancia)
+    db.sesiones.set(token, true);
 }

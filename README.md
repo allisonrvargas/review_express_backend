@@ -1,5 +1,7 @@
 # 📚 Librarian · Backend (API)
 
+[![CI](https://github.com/allisonrvargas/review_express_backend/actions/workflows/ci.yml/badge.svg)](https://github.com/allisonrvargas/review_express_backend/actions/workflows/ci.yml)
+
 API REST de **Librarian**, un sistema para administrar una biblioteca-librería: catálogo e inventario de libros, préstamos, ventas y clientes. Hecha con **Node.js + Express 5**, protegida con **express-rate-limit** y abierta al frontend mediante **CORS**.
 
 > Este repositorio es **solo el backend**. La interfaz web está en su propio repositorio:
